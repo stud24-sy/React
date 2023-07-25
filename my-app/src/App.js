@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
+const { useState } = React;
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = () => {
+        alert(`검색어: ${searchQuery}`);
+    };
+
+    return (
+        <div className="app">
+            <header className="App-header">
+                <img
+                    src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google"
+                    className="app__logo"
+                />
+                <div className="app__searchContainer">
+                    <input
+                        type="text"
+                        className="app__searchInput"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button className="app__searchButton" onClick={handleSearch}>
+                        Google 검색
+                    </button>
+                </div>
+            </header>
+        </div>
+    );
 }
 
 export default App;
