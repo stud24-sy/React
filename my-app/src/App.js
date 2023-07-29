@@ -21,8 +21,8 @@ function App() {
                     <input
                         type="text"
                         className="app__searchInput"
-                        value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        //
                     />
                     <button className="app__searchButton" onClick={handleSearch}>
                         Google 검색
