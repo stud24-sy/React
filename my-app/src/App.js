@@ -1,36 +1,19 @@
 import React from 'react';
+import TitleBox from './components/TitleBox';
+import SearchBox from './components/SearchBox';
+import ProgressBox from './components/ProgressBox';
+import ResultBox from './components/ResultBox';
 import './App.css';
 
-const { useState } = React;
-
-function App() {
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const handleSearch = () => {
-        alert(`검색어: ${searchQuery}`);
-    };
-
+const App = () => {
     return (
-        <div className="app">
-            <header className="App-header">
-                <img
-                    src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google"
-                    className="app__logo"
-                />
-                <div className="app__searchContainer">
-                    <input
-                        type="text"
-                        className="app__searchInput"
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        //
-                    />
-                    <button className="app__searchButton" onClick={handleSearch}>
-                        Google 검색
-                    </button>
-                </div>
-            </header>
+        <div className="w-full h-full p-12">
+            <TitleBox />
+            <SearchBox />
+            <ProgressBox />
+            <ResultBox />
         </div>
     );
-}
+};
 
 export default App;
