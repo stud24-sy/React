@@ -7,12 +7,14 @@ import './App.css';
 
 const App = () => {
     return (
-        <div className="w-full h-full p-12">
+        <>
             <TitleBox />
-            <SearchBox />
-            <ProgressBox />
-            <ResultBox />
-        </div>
+            <div className="w-full h-full p-6">
+                <SearchBox />
+                <ProgressBox />
+                <ResultBox />
+            </div>
+        </>
     );
 };
 
