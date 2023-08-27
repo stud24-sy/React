@@ -45,6 +45,7 @@ const ModalBox = ({ modalVisible, selectedRowData, closeModal }) => {
                         user={user}
                         setUser={setUser}
                         closeModal={closeModal}
+                        render={closeModal}
                     />
                 </div>
             )}
