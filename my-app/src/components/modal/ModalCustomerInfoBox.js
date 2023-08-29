@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Input, Progress, Row, Select, Space} from "antd";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 
-const ModalCustomerInfoBox = () => {
+const ModalCustomerInfoBox = (props) => {
     const [inputValue, setInputValue] = useState({
         clientName: '',
         soldToName: '',
@@ -16,6 +17,7 @@ const ModalCustomerInfoBox = () => {
         representativeName: '',
         representativeNumber: ''
     });
+    const { user, setUser } = props;
 
     function updateClearButtonVisibility(event, fieldName) {
         const value = event.target.value;
@@ -31,6 +33,17 @@ const ModalCustomerInfoBox = () => {
             [fieldName]: ''
         }));
     }
+
+    useEffect(() => {
+        // alert("(ModalCustomerInfoBox) 1 useEffect user : " + JSON.stringify(user));
+        // alert("(ModalCustomerInfoBox) 2 useEffect user.category : " + user.user.category);
+        // alert("(ModalCustomerInfoBox) 3 useEffect user.content : " + user.user.content);
+        setInputValue(prevInputValues => ({
+            ...prevInputValues,
+            ['soldToName']: user.category,
+            ['billToName']: user.content
+        }));
+    }, [user]);
 
     return (
         <section className="customer-info">
