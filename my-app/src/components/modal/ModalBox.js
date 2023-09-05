@@ -38,15 +38,13 @@ const ModalBox = ({ modalVisible, selectedRowData, closeModal }) => {
                     <ModalTitleBox />
                     <ModalCustomerInfoBox
                         user={user}
-                        setUser={setUser}
-                    />
+                        setUser={setUser}/>
                     <ModalBusinessInfoBox/>
                     <ModalFooterBox
                         user={user}
                         setUser={setUser}
                         closeModal={closeModal}
-                        render={closeModal}
-                    />
+                        render={closeModal}/>
                 </div>
             )}
         </Modal>
