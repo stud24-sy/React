@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button} from "antd";
 import axios from "axios";
 
@@ -15,16 +15,9 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
         content: '수정된 사용자입니다'
     }
 
-    useEffect(() => {
-        alert("(ModalFooterBox) useEffect 실행됨");
-    }, []);
-
     const getUserInfo = async () => {
-        if (user.userId !== newUser.userId) {
-            user.userId = newUser.userId;
-        }
 
-        await axios.get(`https://ems-dev-api.sysnova.kr/api/edu/get?userId=` + user.userId)
+        await axios.get(`https://ems-dev-api.sysnova.kr/api/edu/get?userId=` + newUser.userId)
             .then((response) => {
                 setUser(setUserData(response));
             })
@@ -34,18 +27,30 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
 
         function setUserData(response) {
             if (response.data.data.length === 0) {
-                alert("존재하지 않는 사용자입니다.");
+                alert("사용자가 존재하지 않습니다.");
                 return {
                     userId: '',
                     category: '',
                     content: ''
                 };
             }
+
             return response.data.data[0];
         }
     }
 
     const addUserInfo = async () => {
+
+        /**
+         *
+         * const newUser = {
+         *     userId: 'Seyeong',
+         *     category: '사람',
+         *     content: '신규 사용자입니다'
+         * };
+         *
+         */
+
         // 서버에서 HTML 폼의 전송 방식으로 데이터를 처리하고 있는 것으로 예상됨
         await axios.post(`https://ems-dev-api.sysnova.kr/api/edu/post`, newUser, {
             headers: {
@@ -65,7 +70,6 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
         await getUserInfo();
 
         if (user.userId !== updateUser.userId) {
-            alert("수정할 사용자가 존재하지 않습니다.")
             return;
         }
 
@@ -75,7 +79,7 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
             }
         })
             .then((response) => {
-                alert('response.data : ' + JSON.stringify(response.data));
+                getUserInfo();
                 alert("사용자 정보를 수정했습니다.");
             })
             .catch((error) => {
@@ -87,13 +91,18 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
         await getUserInfo();
 
         if (user.userId !== updateUser.userId) {
-            alert("삭제할 사용자가 존재하지 않습니다.")
             return;
         }
 
         await axios.delete(`https://ems-dev-api.sysnova.kr/api/edu/delete?userId=` + newUser.userId)
             .then((response) => {
+                setUser({
+                    userId: '',
+                    category: '',
+                    content: ''
+                });
                 alert("사용자 정보를 삭제했습니다.");
+
             })
             .catch((error) => {
                 alert("사용자 정보 삭제하기 실패 : " + error);
@@ -103,22 +112,22 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
 
     return (
         <section className="footer flex justify-end mt-6">
-            <Button type="default" shape="round" className="mr-3" onClick={closeModal}>
+            <Button type="default" className="mr-3 rounded-s border-2 font-bold text-m text-blue-500" onClick={closeModal}>
                 닫기
             </Button>
-            <Button className="text-white bg-blue-500" type="default" shape="round" className="mr-3"
+            <Button className="text-white bg-red-600 rounded-s font-bold text-m mr-3" type="default"
                     onClick={deleteUserInfo}>
                 삭제
             </Button>
-            <Button className="text-white bg-blue-500" type="default" shape="round" className="mr-3"
+            <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default"
                     onClick={updateUserInfo}>
                 수정 저장
             </Button>
-            <Button className="text-white bg-blue-500" type="default" shape="round" className="mr-3"
+            <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default"
                     onClick={addUserInfo}>
                 신규 저장
             </Button>
-            <Button className="text-white bg-blue-500" type="default" shape="round" className="mr-3"
+            <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default"
                     onClick={getUserInfo}>
                 내용 호출
             </Button>
