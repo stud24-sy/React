@@ -35,9 +35,6 @@ const ModalCustomerInfoBox = (props) => {
     }
 
     useEffect(() => {
-        // alert("(ModalCustomerInfoBox) 1 useEffect user : " + JSON.stringify(user));
-        // alert("(ModalCustomerInfoBox) 2 useEffect user.category : " + user.user.category);
-        // alert("(ModalCustomerInfoBox) 3 useEffect user.content : " + user.user.content);
         setInputValue(prevInputValues => ({
             ...prevInputValues,
             ['soldToName']: user.category,
