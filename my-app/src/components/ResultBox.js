@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
 import {Button, Table} from "antd";
 import ModalBox from './modal/ModalBox';
+import {contentStore, customerContentStoreAtom} from '../store';
+import {useRecoilState} from "recoil";
 
-const ResultBox = () => {
+
+const ResultBox = ({ clientName, shipToName, onClientNameChange, onShipToNameChange }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedRowData, setSelectedRowData] = useState(null);
+    const [content, setContent] = useRecoilState(contentStore);
+    const [customerContentStore, setCustomerContentStore] = useRecoilState(customerContentStoreAtom);
+
 
     const columns = [
         {
@@ -87,6 +93,14 @@ const ResultBox = () => {
     const closeModal = () => {
         setSelectedRowData(null);
         setModalVisible(false);
+
+
+        if (content.clientName !== '저장소 값') {
+            setCustomerContentStore({
+                clientName: content.clientName, // ModalCustomerInfoBox 컴포넌트에서 가져온 clientName 값
+                shipToName: content.shipToName // ModalCustomerInfoBox 컴포넌트에서 가져온 shipToName 값
+            });
+        }
     };
 
     function handleRowClick(record) {
