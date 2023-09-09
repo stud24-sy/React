@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Input, Progress, Row, Select, Space} from "antd";
+import {Col, Input, Row, Select} from "antd";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
+import {useRecoilState} from 'recoil';
+import {contentStore, customerContentStoreAtom} from '../../store';
 
 const ModalCustomerInfoBox = (props) => {
     const [inputValue, setInputValue] = useState({
@@ -18,10 +19,16 @@ const ModalCustomerInfoBox = (props) => {
         representativeNumber: ''
     });
     const { user, setUser } = props;
+    const [content, setContent] = useRecoilState(contentStore);
+    const [customerContentStore, setCustomerContentStore] = useRecoilState(customerContentStoreAtom);
 
     function updateClearButtonVisibility(event, fieldName) {
         const value = event.target.value;
         setInputValue(prevInputValues => ({
+            ...prevInputValues,
+            [fieldName]: value
+        }));
+        setCustomerContentStore(prevInputValues => ({
             ...prevInputValues,
             [fieldName]: value
         }));
@@ -32,6 +39,10 @@ const ModalCustomerInfoBox = (props) => {
             ...prevInputValues,
             [fieldName]: ''
         }));
+        setCustomerContentStore(prevInputValues => ({
+            ...prevInputValues,
+            [fieldName]: ''
+        }));
     }
 
     useEffect(() => {
@@ -39,6 +50,11 @@ const ModalCustomerInfoBox = (props) => {
             ...prevInputValues,
             ['soldToName']: user.category,
             ['billToName']: user.content
+        }));
+        setCustomerContentStore(prevInputValues => ({
+            ...prevInputValues,
+            ['clientName']: content.clientName,
+            ['shipToName']: content.shipToName
         }));
     }, [user]);
 

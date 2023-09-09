@@ -27,7 +27,7 @@ const ModalBox = ({ modalVisible, selectedRowData, closeModal }) => {
 
     return (
         <Modal
-            visible={modalVisible}
+            open={modalVisible}
             onCancel={closeModal}
             className="w-full"
             footer={null}

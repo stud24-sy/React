@@ -1,6 +1,8 @@
 import React from 'react';
 import {Button} from "antd";
 import axios from "axios";
+import {useRecoilState} from 'recoil';
+import {contentStore, customerContentStoreAtom} from '../../store';
 
 const ModalFooterBox = ({user, setUser, closeModal}) => {
     const newUser = {
@@ -14,6 +16,17 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
         category: '수정된 사람',
         content: '수정된 사용자입니다'
     }
+
+    const [content, setContent] = useRecoilState(contentStore);
+    const [customerContentStore, setCustomerContentStore] = useRecoilState(customerContentStoreAtom);
+
+    const saveRecoil = () => {
+        setContent({
+            clientName: customerContentStore.clientName,
+            shipToName: customerContentStore.shipToName
+        });
+        closeModal();
+    };
 
     const getUserInfo = async () => {
 
@@ -112,7 +125,8 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
 
     return (
         <section className="footer flex justify-end mt-6">
-            <Button type="default" className="mr-3 rounded-s border-2 font-bold text-m text-blue-500" onClick={closeModal}>
+            <Button type="default" className="mr-3 rounded-s border-2 font-bold text-m text-blue-500"
+                    onClick={closeModal}>
                 닫기
             </Button>
             <Button className="text-white bg-red-600 rounded-s font-bold text-m mr-3" type="default"
@@ -130,6 +144,10 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
             <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default"
                     onClick={getUserInfo}>
                 내용 호출
+            </Button>
+            <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default"
+                    onClick={saveRecoil}>
+                Recoil 저장
             </Button>
         </section>
     );

@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Col, Input, Row, Select, Space, Progress} from "antd";
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { contentStore } from '../store';
 
 const ProgressBox = () => {
+    const [content, setContent] = useRecoilState(contentStore);
+
     return (
         <>
             <Row className="justify-between py-4">
@@ -38,15 +42,13 @@ const ProgressBox = () => {
                             </Row>
                             <Row className="border">
                                 <Col className="flex w-1/2 items-center justify-center font-bold text-sm bg-gray-100 py-4 border-r">
-                                    Billing 미완료
-                                    <Button className="w-1 text-white bg-blue-400 ml-2 hover:shadow-md" type="primary" shape="circle" size="small">
-                                        i
+                                    <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default">
+                                        Client Name
                                     </Button>
                                 </Col>
                                 <Col className="flex w-1/2 items-center justify-center font-bold text-sm bg-gray-100 py-4">
-                                    Billing 완료
-                                    <Button className="w-1 text-white bg-blue-400 ml-2 hover:shadow-md" type="primary" shape="circle" size="small">
-                                        i
+                                    <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default">
+                                        Ship To Name
                                     </Button>
                                 </Col>
                             </Row>
@@ -56,8 +58,16 @@ const ProgressBox = () => {
                         <Col span={4} className="flex items-center justify-center font-bold text-sm py-4 border-r">94</Col>
                         <Col span={5} className="flex items-center justify-center font-bold text-sm py-4 border-r">86</Col>
                         <Col span={5} className="flex items-center justify-center font-bold text-sm py-4 border-r">6</Col>
-                        <Col span={5} className="flex items-center justify-center font-bold text-sm py-4 border-r">2</Col>
-                        <Col span={5} className="flex items-center justify-center font-bold text-sm py-4">0</Col>
+                        <Col span={5} className="flex items-center justify-center font-bold text-sm py-4 border-r">
+                            <Button className="flex text-white bg-gray-300 rounded-s font-bold text-m" type="default">
+                                {content.clientName}
+                            </Button>
+                        </Col>
+                        <Col span={5} className="flex items-center justify-center font-bold text-sm py-4">
+                            <Button className="text-white bg-gray-300 rounded-s font-bold text-m" type="">
+                                {content.shipToName}
+                            </Button>
+                        </Col>
                     </Row>
                 </Col>
 
