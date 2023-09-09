@@ -7,7 +7,15 @@ import { atom } from 'recoil';
 export const contentStore = atom({
     key: 'contentStore',
     default: {
-        clientName: '', // 이 두 가지 항목을 여러 컴포넌트에서 공유하여 사용할 예정입니다.
-        shipToName: ''
+        clientName: '저장소 값',
+        shipToName: '저장소 값'
     }
+});
+
+export const customerContentStoreAtom = atom({ // 변수 이름 변경
+    key: 'customerContentStore',
+    default: {
+        clientName: '',
+        shipToName: ''
+    },
 });
