@@ -1,37 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import TitleBox from './components/TitleBox';
 import SearchBox from './components/SearchBox';
 import ProgressBox from './components/ProgressBox';
 import ResultBox from './components/ResultBox';
 import './App.css';
-import {useRecoilState} from "recoil";
-import { contentStore } from './store';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {fab} from '@fortawesome/free-brands-svg-icons';
+import {far} from "@fortawesome/free-regular-svg-icons";
+import {fas} from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
 
-    const [content, setContent] = useRecoilState(contentStore);
-    const [user, setUser] = useState({
-        userId: '',
-        category: '',
-        content: ''
-    });
-    // const [clientName, setClientName] = useRecoilState(clientNameState);
-    // const [shipToName, setShipToName] = useRecoilState(shipToNameState);
-
-    const handleButton_onClick = () => {
-        setContent({
-            clientName: 'Seyeong',
-            shipToName: '신규 사용자입니다'
-        })
-    }
-
-    // const handleClientNameChange = (e) => {
-    //     setClientName(e.target.value);
-    // };
-
-    // const handleShipToNameChange = (e) => {
-    //     setShipToName(e.target.value);
-    // };
+    library.add(fab, far, fas);
 
     return (
         <>
