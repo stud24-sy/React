@@ -79,8 +79,11 @@ const SearchBox = () => {
                     </Col>
                     <Col span={2} className="flex items-center py-4 p-4">
                         <div className="w-full">
-                            <Button className="w-16 text-white bg-blue-500 hover:shadow-md ml-6" type="primary" shape="round">
-                                검색
+                            <Button className="w-20 text-white bg-blue-500 hover:shadow-md " type="primary" shape="round">
+                                <FontAwesomeIcon
+                                    icon={["fas", "search"]}
+                                    className="w-5 h-5"
+                                />
                             </Button>
                         </div>
                     </Col>
@@ -88,6 +91,7 @@ const SearchBox = () => {
                         <div className="w-full">
                             <Button className="w-40 border-2 hover:shadow-md pl-6" type="default" shape="round">
                                 검색 조건 초기화
+                                <FontAwesomeIcon icon={faTimes} className="ml-2" />
                             </Button>
                         </div>
                     </Col>
@@ -201,7 +205,10 @@ const SearchBox = () => {
                                 </button>
                             </div>
                             <Button className="text-white bg-blue-500" type="primary" shape="round">
-                                검색
+                                <FontAwesomeIcon
+                                    icon={["fas", "search"]}
+                                    className="w-5 h-5"
+                                />
                             </Button>
                         </div>
                     </Col>

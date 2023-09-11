@@ -3,6 +3,7 @@ import {Button, Table} from "antd";
 import ModalBox from './modal/ModalBox';
 import {contentStore, customerContentStoreAtom} from '../store';
 import {useRecoilState} from "recoil";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 const ResultBox = ({ clientName, shipToName, onClientNameChange, onShipToNameChange }) => {
@@ -113,8 +114,9 @@ const ResultBox = ({ clientName, shipToName, onClientNameChange, onShipToNameCha
         <>
             <div className="flex w-full items-center pt-2 pb-2">
                 <div className="w-1/2">
-                    <Button className="w-1/5 border-2 hover:shadow-md pl-6" type="default" shape="round">
+                    <Button className="w-1/5 border-2 font-bold hover:shadow-md" type="default" shape="round">
                         엑셀 다운로드
+                        <FontAwesomeIcon icon={['fas', 'download']} className="w-4 text-black-400 text-xl bg-white ml-2 hover:shadow-md"/>
                     </Button>
                 </div>
                 <div className="w-1/2 flex justify-end">
