@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import {Col, Input, Row, Select, Space} from "antd";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const ModalBusinessInfoBox = () => {
     const [size, setSize] = useState(0);
 
     return (
         <section className="customer-info mt-6">
-            <span className="text-xl text-gray-700">영업 정보</span>
+            <span className="text-xl text-gray-700">영업 정보
+            </span>
 
             <div className="pt-3">
                 {/*Project Name*/}
