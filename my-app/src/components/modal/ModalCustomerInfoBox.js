@@ -60,7 +60,9 @@ const ModalCustomerInfoBox = (props) => {
 
     return (
         <section className="customer-info">
-            <span className="text-xl text-gray-700">고객사 정보</span>
+            <span className="text-xl text-gray-700">고객사 정보
+                <FontAwesomeIcon icon={['fas', 'user']} className="w-6 text-blue-400 text-2xl bg-white ml-2 hover:shadow-md" />
+            </span>
 
             <div className="pt-3">
                 {/*Industry / Type*/}
