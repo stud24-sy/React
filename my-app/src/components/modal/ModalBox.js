@@ -31,8 +31,7 @@ const ModalBox = ({ modalVisible, selectedRowData, closeModal }) => {
             onCancel={closeModal}
             className="w-full"
             footer={null}
-            width={1000}
-        >
+            width={1000}>
             {selectedRowData && (
                 <div>
                     <ModalTitleBox />
@@ -52,3 +51,5 @@ const ModalBox = ({ modalVisible, selectedRowData, closeModal }) => {
 };
 
 export default ModalBox;
+
+

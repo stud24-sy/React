@@ -3,6 +3,7 @@ import {Button} from "antd";
 import axios from "axios";
 import {useRecoilState} from 'recoil';
 import {contentStore, customerContentStoreAtom} from '../../store';
+import Joi from "joi";
 
 const ModalFooterBox = ({user, setUser, closeModal}) => {
     const newUser = {
@@ -19,6 +20,66 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
 
     const [content, setContent] = useRecoilState(contentStore);
     const [customerContentStore, setCustomerContentStore] = useRecoilState(customerContentStoreAtom);
+
+
+    const validateUser = () => {
+        let clientName = customerContentStore.clientName;
+        let shipToName = customerContentStore.shipToName;
+        let soldToName = customerContentStore.soldToName;
+        let billToName = customerContentStore.billToName;
+
+        const userSchema = Joi.object({
+            clientName : Joi.string()
+                .min(2)
+                .pattern(new RegExp('^[가-힣a-zA-Z]{2,}$'))
+                .required()
+                .messages({
+                    'string.empty': '고객명을 입력해주세요.',
+                    'string.min': '고객명은 최소 2자 이상이어야 합니다.',
+                    'string.pattern.base': '고객명은 한글과 영문 대/소문자로만 이루어져야 합니다.',
+                }),
+            soldToName : Joi.string()
+                .min(2)
+                .pattern(new RegExp('^[가-힣a-zA-Z]{2,}$'))
+                .required()
+                .messages({
+                    'string.empty': '구매자명를 입력하세요.',
+                    'string.min': '구매자명은 최소 2자 이상이어야 합니다',
+                    'string.pattern.base': '구매자명은 한글과 영문 대/소문자로만 이루어져야 합니다.',
+                }),
+            billToName: Joi.string()
+                .min(2)
+                .pattern(new RegExp('^[가-힣a-zA-Z]{2,}$'))
+                .required()
+                .messages({
+                    'string.empty': '청구지명을 입력하세요.',
+                    'string.min': '청구지명은 최소 2자 이상이어야 합니다',
+                    'string.pattern.base': '청구지명은 한글과 영문 대/소문자로만 이루어져야 합니다.',
+                }),
+            shipToName : Joi.string()
+                .min(8)
+                .pattern(new RegExp('^((?=.*[가-힣a-zA-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).+){8,}$'))
+                .required()
+                .messages({
+                    'string.empty': '배송지를 입력하세요.',
+                    'string.min': '배송지는 최소 8자 이상이어야 합니다.',
+                    'string.pattern.base': '배송지는 한글 또는 영문 대/소문자, 숫자, 특수 기호가 모두 포함되어야 합니다.',
+                }),
+        });
+
+        const result = userSchema.validate({
+            clientName: clientName,
+            shipToName: shipToName,
+            soldToName: soldToName,
+            billToName: billToName,
+        });
+
+        if (result.error) {
+            alert(result.error.message);
+            return;
+        }
+        alert("유효성 검사를 통과하였습니다.");
+    };
 
     const saveRecoil = () => {
         setContent({
@@ -148,6 +209,10 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
             <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default"
                     onClick={saveRecoil}>
                 Recoil 저장
+            </Button>
+            <Button className="text-white bg-blue-500 rounded-s font-bold text-m mr-3" type="default"
+                    onClick={validateUser}>
+                유효성 검사
             </Button>
         </section>
     );
