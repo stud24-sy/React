@@ -58,7 +58,7 @@ const ModalFooterBox = ({user, setUser, closeModal}) => {
                 }),
             shipToName : Joi.string()
                 .min(8)
-                .pattern(new RegExp('^((?=.*[가-힣a-zA-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).+){8,}$'))
+                .pattern(new RegExp('^(?=.*[가-힣a-zA-Z]){1,}(?=.*\\d){1,}(?=.*[@#$%^&+=!]){1,}.+$'))
                 .required()
                 .messages({
                     'string.empty': '배송지를 입력하세요.',
